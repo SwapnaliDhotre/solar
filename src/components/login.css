@@ -1,0 +1,80 @@
+
+  body {
+    margin: 0; /* Remove default margin */
+    background-color: #ffffff; /* Set background color to white */
+    font-family: Arial, sans-serif; /* Optional: set a default font */
+  }
+
+  .card-container {
+    display: flex;
+    width: 40%; /* Card covers 40% of the viewport width */
+    background-color: #ffffff; /* White background for the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    border-radius: 10px; /* Rounded corners */
+    overflow: hidden; /* Prevents overflow */
+  }
+
+  .card{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .left-section {
+    flex: 1;
+    background-color: #f7ef06f3; /* Background color */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .right-section {
+    flex: 1;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  h1, h2 {
+    margin: 0;
+    
+  }
+
+  button {
+    background-color: #08d1c0da;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 10px 0;
+  }
+
+  button.google-login {
+    background-color: #08d1c0da; /* Google button color */
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+  }
+
+  a {
+    color: #08d1c0da;
+    text-decoration: none;
+    text-size-adjust: inherit;
+    font-size: medium;
+  }
+
+  .logo-image{
+    max-width: 70%;
+    height: auto;
+    margin-top: 10px;
+  }
