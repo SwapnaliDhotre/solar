@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './login.css';
 import logo from '../assets/solar.png';
 
 const Login = () => {
+    const [provider, setProvider] = useState<IProvider | null>(null);
+    
     return (
         <div className='card'>
         <div className="card-container">
