@@ -1,0 +1,129 @@
+/* Container styling */
+.power-screen-container {
+    background: linear-gradient(135deg, #2ecc71, #1abc9c);
+    color: #333;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 70px; /* Space for footer */
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    color: #4a4a4a;
+    font-size: 20px;
+}
+
+.back-arrow, .menu-dots {
+    font-size: 24px;
+    cursor: pointer;
+    color: #4a4a4a;
+}
+
+.header h2 {
+    font-size: 24px;
+    color: #4a4a4a;
+    margin: 0;
+}
+
+.header h2 strong {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Power information cards */
+.power-info {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    width: 100%;
+    justify-content: center;
+}
+
+.power-card {
+    background: linear-gradient(135deg, #5dd39e, #38a890);
+    border-radius: 15px;
+    color: black;
+    padding: 20px;
+    width: 45%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.power-card h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    color: #000;
+}
+
+.power-card p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #4a4a4a;
+    font-weight: normal;
+    border-left: 1px solid #ccc;
+    padding-left: 10px;
+    align-self: flex-end;
+}
+
+/* Menu items */
+.menu {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    font-size: 16px;
+    color: #4a4a4a;
+    border-bottom: 1px solid #ccc;
+}
+
+.menu-item span {
+    color: #4a4a4a;
+}
+
+.menu-item strong {
+    color: #333;
+    font-weight: bold;
+}
+
+.menu-item .arrow {
+    font-size: 18px;
+    color: #333;
+}
+
+/* Footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    background-color: #fff;
+    color: #2ecc71;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer-icon {
+    font-size: 24px;
+    cursor: pointer;
+}

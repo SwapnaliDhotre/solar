@@ -1,0 +1,60 @@
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #2ecc71, #1abc9c);
+    text-align: center;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.logo-container {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 60%;
+    height: auto;
+}
+
+.welcome-text {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+.get-started-btn {
+    background-color: white;
+    color: #1abc9c;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.sign-in {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.sign-in-link {
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}
