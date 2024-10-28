@@ -1,6 +1,6 @@
 import React from 'react';
 import './MarketplaceScreen.css';
-import solarIcon from '../assets/solar.png';
+import solarIcon from '../assets/logo.png';
 
 const panels = [
     { id: 1, title: "1 KW Watt Solar Panel", price: "300 USDT", energy: "8.3", atmosphere: "4", sufficiency: "5.0", flexibility: "7.6" },

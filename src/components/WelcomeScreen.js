@@ -1,6 +1,6 @@
 import React from 'react';
 import './WelcomeScreen.css';
-import solarLogo from '../assets/solar.png';
+import solarLogo from '../assets/logo.png';
 
 const WelcomeScreen = () => {
     return (
