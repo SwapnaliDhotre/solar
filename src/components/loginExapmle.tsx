@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 
 // import { Web3Auth } from "@web3auth/web3auth";
-import { CHAIN_NAMESPACE } from "@web3auth/base";
-import { CHAIN_NAMESPACES, IAdapter, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
+import { CHAIN_NAMESPACES, IAdapter, WEB3AUTH_NETWORK } from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3Auth, Web3AuthOptions } from "@web3auth/modal";
 import { getDefaultExternalAdapters } from "@web3auth/default-evm-adapter";
 
-import RCP from "./web3RPC";
+// import RCP from "./web3RPC";
 
 const clientId = "BAajpmzVb8iWQQEoaf-zl2xxh8s0KNPbvYmazXXJCOz-3kPuKKNpFGtW_omPqX_J9paZzOunbG_wgHpZ4-ptmps"
 
 const chainConfig = {
-    chainNamespace: CHAIN_NAMESPACE.EIP155,
+    chainNamespace: CHAIN_NAMESPACES.EIP155,
     chainId:"0xaa36a7",
     rpcTarget: "https://rpc.ankr.com/eth_sepolia",
     displayName: "Ethereum Sepolia Testnet",
@@ -34,12 +33,12 @@ privateKeyProvider,
 
 const web3auth = new Web3Auth(web3AuthOptions);
 
-const adapters = await getDefaultExternalAdapters({ options: web3AuthOptions });
+const adapters = getDefaultExternalAdapters({ options: web3AuthOptions });
 adapters.forEach((adapter: IAdapter<unknown>) => {
   web3auth.configureAdapter(adapter);
 });
 const loginExapmle = () => {
-  const [provider, setProvider] = useState<IProvider | null>(null);
+  const [provider, setProvider] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {

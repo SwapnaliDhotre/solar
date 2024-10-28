@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
 import logo from '../assets/solar.png';
-import { CHAIN_NAMESPACES, IAdapter, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
-import { Web3Auth, Web3AuthOptions } from "@web3auth/modal";
+import { WEB3AUTH_NETWORK, CHAIN_NAMESPACES } from "@web3auth/base";
+import { Web3Auth } from "@web3auth/modal";
 import { getDefaultExternalAdapters } from "@web3auth/default-evm-adapter";
 import { CommonPrivateKeyProvider } from "@web3auth/base-provider";
+
 
 const clientId = "BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ";
 
@@ -32,13 +33,13 @@ const web3AuthOptions = {
 
 const web3auth = new Web3Auth(web3AuthOptions);
 
-const adapters = await getDefaultExternalAdapters({ options: web3AuthOptions });
+const adapters = getDefaultExternalAdapters({ options: web3AuthOptions });
 adapters.forEach((adapter) => {
   web3auth.configureAdapter(adapter);
 });
 
 const Login = () => {
-    const [provider, setProvider] = useState<IProvider | null>(null);
+    const [provider, setProvider] = useState(null);
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {

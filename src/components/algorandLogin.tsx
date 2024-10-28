@@ -1,7 +1,6 @@
 import { Web3Auth } from "@web3auth/modal";
 import { CommonPrivateKeyProvider } from "@web3auth/base-provider";
 import { WEB3AUTH_NETWORK, CHAIN_NAMESPACES } from "@web3auth/base";
-import { IProvider } from "@web3auth/base";
 import algosdk from "algosdk";
 
 
