@@ -1,3 +1,6 @@
+import { Buffer } from 'buffer';  // Add this line
+window.Buffer = Buffer;           // Add this line
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';

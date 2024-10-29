@@ -1,25 +1,34 @@
 const webpack = require("webpack");
 
 module.exports = function override(config) {
-  const fallback = config.resolve.fallback || {};
-  Object.assign(fallback, {
-    crypto: false, // require.resolve("crypto-browserify") can be polyfilled here if needed
-    stream: false, // require.resolve("stream-browserify") can be polyfilled here if needed
-    assert: false, // require.resolve("assert") can be polyfilled here if needed
-    http: false, // require.resolve("stream-http") can be polyfilled here if needed
-    https: false, // require.resolve("https-browserify") can be polyfilled here if needed
-    os: false, // require.resolve("os-browserify") can be polyfilled here if needed
-    url: false, // require.resolve("url") can be polyfilled here if needed
-    zlib: false, // require.resolve("browserify-zlib") can be polyfilled here if needed
-  });
-  config.resolve.fallback = fallback;
-  config.plugins = (config.plugins || []).concat([
+  // Configure fallback for Node.js core modules
+  config.resolve.fallback = {
+    ...config.resolve.fallback,
+    crypto: false,
+    stream: false,
+    assert: false,
+    http: false,
+    https: false,
+    os: false,
+    url: false,
+    zlib: false,
+    buffer: require.resolve("buffer/") // Add buffer polyfill here
+  };
+
+  // Provide polyfills for process and Buffer
+  config.plugins = [
+    ...(config.plugins || []),
     new webpack.ProvidePlugin({
       process: "process/browser",
       Buffer: ["buffer", "Buffer"],
+      React: "react",
     }),
-  ]);
+  ];
+
+  // Ignore warnings about source maps
   config.ignoreWarnings = [/Failed to parse source map/];
+
+  // Add source-map-loader for JavaScript files
   config.module.rules.push({
     test: /\.(js|mjs|jsx)$/,
     enforce: "pre",
@@ -28,5 +37,25 @@ module.exports = function override(config) {
       fullySpecified: false,
     },
   });
+
+  // Add Babel loader configuration for modern JavaScript and TypeScript features
+  config.module.rules.push({
+    test: /\.(js|jsx|ts|tsx)$/,
+    exclude: /node_modules/,
+    use: {
+      loader: "babel-loader",
+      options: {
+        presets: [
+          "@babel/preset-env",
+          "@babel/preset-react",
+          "@babel/preset-typescript" // Add TypeScript support
+        ],
+        plugins: [
+          "@babel/plugin-proposal-optional-chaining" // Support for optional chaining
+        ]
+      }
+    }
+  });
+
   return config;
 };

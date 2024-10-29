@@ -1,35 +1,31 @@
 import { useEffect, useState } from "react";
-
-// import { Web3Auth } from "@web3auth/web3auth";
-import { CHAIN_NAMESPACES, IAdapter, WEB3AUTH_NETWORK } from "@web3auth/base";
-import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3Auth, Web3AuthOptions } from "@web3auth/modal";
+import { CHAIN_NAMESPACES, IAdapter, WEB3AUTH_NETWORK, SafeEventEmitterProvider } from "@web3auth/base";
+import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { getDefaultExternalAdapters } from "@web3auth/default-evm-adapter";
 
-// import RCP from "./web3RPC";
-
-const clientId = "BAajpmzVb8iWQQEoaf-zl2xxh8s0KNPbvYmazXXJCOz-3kPuKKNpFGtW_omPqX_J9paZzOunbG_wgHpZ4-ptmps"
+const clientId = "BAajpmzVb8iWQQEoaf-zl2xxh8s0KNPbvYmazXXJCOz-3kPuKKNpFGtW_omPqX_J9paZzOunbG_wgHpZ4-ptmps";
 
 const chainConfig = {
-    chainNamespace: CHAIN_NAMESPACES.EIP155,
-    chainId:"0xaa36a7",
-    rpcTarget: "https://rpc.ankr.com/eth_sepolia",
-    displayName: "Ethereum Sepolia Testnet",
-    blockExplorerUrl: "https://sepolia.etherscan.io",
-    ticker: "ETH",
-    tickerName: "Ethereum",
-    logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
-}
+  chainNamespace: CHAIN_NAMESPACES.EIP155,
+  chainId: "0xaa36a7",
+  rpcTarget: "https://rpc.ankr.com/eth_sepolia",
+  displayName: "Ethereum Sepolia Testnet",
+  blockExplorerUrl: "https://sepolia.etherscan.io",
+  ticker: "ETH",
+  tickerName: "Ethereum",
+  logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
+};
 
 const privateKeyProvider = new EthereumPrivateKeyProvider({
-    config: { chainConfig },
-  });
+  config: { chainConfig },
+});
 
 const web3AuthOptions: Web3AuthOptions = {
-clientId,
-web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET,
-privateKeyProvider,
-}
+  clientId,
+  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET,
+  privateKeyProvider,
+};
 
 const web3auth = new Web3Auth(web3AuthOptions);
 
@@ -37,49 +33,43 @@ const adapters = getDefaultExternalAdapters({ options: web3AuthOptions });
 adapters.forEach((adapter: IAdapter<unknown>) => {
   web3auth.configureAdapter(adapter);
 });
-const loginExapmle = () => {
-  const [provider, setProvider] = useState(null);
+
+const LoginExample = () => {
+  // Use SafeEventEmitterProvider for provider type
+  const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     const init = async () => {
       try {
-        // IMP START - SDK Initialization
         await web3auth.initModal();
-        // IMP END - SDK Initialization
-        setProvider(web3auth.provider);
-
+        setProvider(web3auth.provider); // Now uses SafeEventEmitterProvider | null type
         if (web3auth.connected) {
           setLoggedIn(true);
         }
       } catch (error) {
-        console.error(error);
+        console.error("Initialization Error:", error);
       }
     };
     init();
   }, []);
 
   const login = async () => {
-    // IMP START - Login
     const web3authProvider = await web3auth.connect();
-    // IMP END - Login
-    setProvider(web3authProvider);
+    setProvider(web3authProvider); // Now uses SafeEventEmitterProvider | null type
     if (web3auth.connected) {
       setLoggedIn(true);
     }
-  }
+  };
 
   const getUserInfo = async () => {
-    // IMP START - Get User Information
     const user = await web3auth.getUserInfo();
-    // IMP END - Get User Information
+    console.log("User Info:", user);
     uiConsole(user);
   };
 
   const logout = async () => {
-    // IMP START - Logout
     await web3auth.logout();
-    // IMP END - Logout
     setProvider(null);
     setLoggedIn(false);
     uiConsole("logged out");
@@ -92,6 +82,15 @@ const loginExapmle = () => {
       console.log(...args);
     }
   }
+
+  return (
+    <div>
+      <button onClick={login}>Login</button>
+      <button onClick={getUserInfo}>Get User Info</button>
+      <button onClick={logout}>Logout</button>
+      <div id="console"><p></p></div>
+    </div>
+  );
 };
 
-export default loginExapmle;
+export default LoginExample;

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
 import logo from '../assets/solar.png';
-import { WEB3AUTH_NETWORK, CHAIN_NAMESPACES } from "@web3auth/base";
+import { WEB3AUTH_NETWORK } from "@web3auth/base";
 import { Web3Auth } from "@web3auth/modal";
-import { getDefaultExternalAdapters } from "@web3auth/default-evm-adapter";
 import { CommonPrivateKeyProvider } from "@web3auth/base-provider";
-
+import { getDefaultExternalAdapters } from "@web3auth/default-evm-adapter"; // Import added
 
 const clientId = "BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ";
 
@@ -22,7 +21,7 @@ const chainConfig = {
 };
 
 const privateKeyProvider = new CommonPrivateKeyProvider({
-    config: { chainConfig: chainConfig },
+    config: { chainConfig },
 });
 
 const web3AuthOptions = {
@@ -45,9 +44,7 @@ const Login = () => {
     useEffect(() => {
         const init = async () => {
           try {
-            // IMP START - SDK Initialization
             await web3auth.initModal();
-            // IMP END - SDK Initialization
             setProvider(web3auth.provider);
     
             if (web3auth.connected) {
@@ -62,13 +59,13 @@ const Login = () => {
       }, []);
     
     const login = async () => {
-        // IMP START - Login
         const web3authProvider = await web3auth.connect();
-        // IMP END - Login
         setProvider(web3authProvider);
         if (web3auth.connected) {
           setLoggedIn(true);
         }
+        const user = await web3auth.getUserInfo();
+        console.log("user", user);
     };
     
     return (
@@ -76,18 +73,17 @@ const Login = () => {
         <div className="card-container">
             <div className="left-section">
                 <h1> Solar NFT </h1>
-                {/* <h6>Tag lines .....</h6> */}
-                <img src={logo} alt='logo' className='logo-image'></img>
+                <img src={logo} alt='logo' className='logo-image' />
             </div>
             <div className="right-section">
-                <h1 style={{color: '#08d1c0da'}}>Welcome</h1>
-                <form style={{paddingRight: 20}}>
+                <h1 style={{ color: '#08d1c0da' }}>Welcome</h1>
+                <form style={{ paddingRight: 20 }}>
                     <input type="email" placeholder="Username" required />
                     <input type="password" placeholder="Password" required />
                     <a href="/forgot-password">Forget password?</a>
-                    <button style={{margin: 7}} type="submit" onClick={login}>Login</button>
+                    <button style={{ margin: 7 }} type="button" onClick={login}>Login</button>
                 </form>
-                <p style={{fontSize: 13}}>Don't have an account? <a href="/signup">Sign In</a></p>
+                <p style={{ fontSize: 13 }}>Don&apos;t have an account? <a href="/signup">Sign Up</a></p>
             </div>
       </div>
       </div>
