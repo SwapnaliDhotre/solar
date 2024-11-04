@@ -4,21 +4,32 @@ import logo from '../assets/solar.png';
 import { WEB3AUTH_NETWORK } from "@web3auth/base";
 import { Web3Auth } from "@web3auth/modal";
 import { CommonPrivateKeyProvider } from "@web3auth/base-provider";
-import { getDefaultExternalAdapters } from "@web3auth/default-evm-adapter"; // Import added
 
 const clientId = "BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ";
 
+// const chainConfig = {
+//     chainNamespace: "other",
+//     chainId: "Algorand",
+//     rpcTarget: "https://api.algoexplorer.io",
+//     // Avoid using public rpcTarget in production.
+//     // Use services like PureStake, AlgoExplorer API, etc.
+//     displayName: "Algorand Mainnet",
+//     blockExplorerUrl: "https://algoexplorer.io",
+//     ticker: "ALGO",
+//     tickerName: "Algorand",
+// };
+
 const chainConfig = {
     chainNamespace: "other",
-    chainId: "Algorand",
+    chainId: "0x3E9", //
     rpcTarget: "https://api.algoexplorer.io",
     // Avoid using public rpcTarget in production.
     // Use services like PureStake, AlgoExplorer API, etc.
-    displayName: "Algorand Mainnet",
-    blockExplorerUrl: "https://algoexplorer.io",
-    ticker: "ALGO",
+    displayName: "Algorand Testnet",
+    blockExplorerUrl: "https://testnet.algoexplorer.io",
+    ticker: "tALGO",
     tickerName: "Algorand",
-};
+  };
 
 const privateKeyProvider = new CommonPrivateKeyProvider({
     config: { chainConfig },
@@ -32,10 +43,15 @@ const web3AuthOptions = {
 
 const web3auth = new Web3Auth(web3AuthOptions);
 
-const adapters = getDefaultExternalAdapters({ options: web3AuthOptions });
-adapters.forEach((adapter) => {
-  web3auth.configureAdapter(adapter);
-});
+// const adapters = getDefaultExternalAdapters({ options: web3AuthOptions });
+// adapters.forEach((adapter) => {
+//   web3auth.configureAdapter(adapter);
+// });
+
+(async () => {
+    await web3auth.initModal();
+    // You can proceed with the login and further functionalities for Algorand.
+})();
 
 const Login = () => {
     const [provider, setProvider] = useState(null);
@@ -59,6 +75,7 @@ const Login = () => {
       }, []);
     
     const login = async () => {
+      try{
         const web3authProvider = await web3auth.connect();
         setProvider(web3authProvider);
         if (web3auth.connected) {
@@ -66,6 +83,13 @@ const Login = () => {
         }
         const user = await web3auth.getUserInfo();
         console.log("user", user);
+      } catch(error){
+        if (error.message === "User closed the modal") {
+          console.warn("User closed the login modal.");
+        } else {
+            console.error("Login error:", error);
+        }
+      }
     };
     
     return (
